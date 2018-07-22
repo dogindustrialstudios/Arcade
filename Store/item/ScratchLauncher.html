@@ -1,0 +1,9 @@
+<title>Purchasing Scratch Launcher</title>
+<script>
+if (Number(localStorage.ArcadeCoins) > 49 && localStorage.ownsscratchlauncher != "Yes") {
+localStorage.ownsscratchlauncher = "Yes";
+localStorage.ArcadeCoins = Number(localStorage.ArcadeCoins) - 50;
+localStorage.ArcadeMoneyRecentPurchase = "Scratch Game Launcher";
+window.location.href = "/Arcade/Store/ItemPurchased";
+} else { window.location.href = "/Arcade/Store/PurchaseFailed"; }
+</script>

@@ -1,0 +1,9 @@
+<title>Purchasing Premuim Plan</title>
+<script>
+if (Number(localStorage.ArcadeCoins) > 249 && localStorage.GamePass != "Premium") {
+localStorage.GamePass = "Premium";
+localStorage.ArcadeCoins = Number(localStorage.ArcadeCoins) - 250;
+localStorage.ArcadeMoneyRecentPurchase = "Premium Game Pass";
+window.location.href = "/Arcade/Store/ItemPurchased";
+} else { window.location.href = "/Arcade/Store/PurchaseFailed"; }
+</script>

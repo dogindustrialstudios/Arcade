@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#promowindow {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+#promotext{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+#CloseButton {
+    text-align: center;
+    margin-top: 20px;
+    display:none;
+}
+</style>
+</head>
+<body>
+
+<div id="promowindow">
+  <div id="promotext">
+    <object data="https://dog12312.github.io/Promote/FullScreen/index.html" width="800" height="500" style="cursor:help;"><a onclick="CloseFullSizePromo();" style="background:black;padding:1000px;font-size:50px;color:white;">Skip</a></object>
+<div id="CloseButton">
+Skip
+</div>
+  </div>
+</div>
+
+<div style="padding:20px">
+  <h2>Overlay with Text</h2>
+  <button onclick="OpenFullSizePromo()">Turn on overlay effect</button>
+</div>
+
+<script>
+function OpenFullSizePromo() {
+    document.getElementById("promowindow").style.display = "block";
+  setTimeout(ShowSkip, 3000);
+}
+
+function CloseFullSizePromo() {
+    document.getElementById("promowindow").style.display = "none";
+}
+function ShowSkip() {
+    var cb = document.getElementById("CloseButton");
+    cb.style.display = "block";
+}
+</script>
+     
+</body>
+</html> 

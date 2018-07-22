@@ -1,0 +1,16 @@
+<title>CrystalBall</title>
+<script>
+if (Number(localStorage.ArcadeCoins) > 49) {
+  localStorage.ArcadeCoins = Number(localStorage.ArcadeCoins) - 50;
+  localStorage.ArcadeMoneyRecentPurchase = "Crystal Ball ticket. Luck 1";
+  var Options = ["Fortune","BadLuck","BadLuck","BadLuck","BadLuck"]
+  var Get = Options[Math.floor(Math.random() * 5)]
+  if (Get == "Fortune") {
+    window.location.href = "/Arcade/Store/item/CrystalBall/Fortune1";
+  } else {
+    if (Get == "BadLuck") {
+      window.location.href = "/Arcade/Store/item/CrystalBall/BadLuck1";
+    }
+  }
+} else { window.location.href = "/Arcade/Store/PurchaseFailed"; }
+</script>

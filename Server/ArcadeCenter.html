@@ -1,0 +1,51 @@
+<body align="center">
+  <div id="ArcadeCenterLoginAlert" align="center" style="padding:20;top:-300;height:200;width:400;max-height:300;background:#f0f0f0;border-radius: 25px;">
+    <a id="Name" style="top:0;font-size: 30px;display:inline-table;">Searching</a>
+    <a id="Pass" style="top:0;font-size: 30px;display:inline-table;">Searching</a>
+    <a id="Coins" style="top:0;font-size: 30px;display:inline-table;">Searching</a>
+    <img id="ProfilePic" src="" width=200 height=200 alt="">
+  </div>
+</body>
+<style>
+  body {
+    margin-left: auto;
+    margin-right: auto;
+  }
+#ArcadeCenterLoginAlert {
+    top:-300px;
+    left:40%;
+    width: 100px;
+    height: 100px;
+    //background-color: red;
+    position: relative;
+    -webkit-animation-name: alert; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-delay: 10s; /* Safari 4.0 - 8.0 */
+    animation-name: alert;
+    animation-duration: 20s;
+    animation-delay: 2s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes alert {
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+}
+
+/* Standard syntax */
+@keyframes alert {
+    0%   {top:-300px;}
+    25%  {top:10;}
+    75% {top:-400px;}
+}
+</style>
+<script>
+document.getElementById('Name').innerHTML = localStorage.Name;
+document.getElementById('Pass').innerHTML = localStorage.GamePass;
+document.getElementById('Coins').innerHTML = localStorage.ArcadeCoins + " Coins";
+var profile = document.getElementById("ProfilePic");
+profile.src = localStorage.ProfilePicture;
+</script>

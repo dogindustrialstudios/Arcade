@@ -1,0 +1,9 @@
+<title>Purchasing InDevPass</title>
+<script>
+if (Number(localStorage.ArcadeCoins) > 149 && Number(localStorage.InDevPass) != 1) {
+localStorage.InDevPass = 1;
+localStorage.ArcadeCoins = Number(localStorage.ArcadeCoins) - 150;
+window.location.href = "/Arcade/Store/ItemPurchased";
+localStorage.ArcadeMoneyRecentPurchase = "In Delevopment Game Pass";
+} else { window.location.href = "/Arcade/Store/PurchaseFailed"; }
+</script>
