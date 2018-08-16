@@ -1,0 +1,29 @@
+{
+  "short_name": "Arcade",
+  "name": "Arcade",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html?launcher=true",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

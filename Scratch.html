@@ -1,0 +1,169 @@
+<!doctype html>
+<meta charset=utf-8>
+<meta name=apple-mobile-web-app-capable content=yes>
+<meta name=apple-mobile-web-app-status-bar-style content=black>
+<title>Game</title>
+<link rel="shortcut icon" href="/Arcade/logo.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/Arcade/logo.ico" type="image/x-icon">
+<link rel=stylesheet href=https://dog12312.github.io/assets/apps/app.css>
+<div id="sidebuttons" style="display:none;">
+<img src="/Arcade/logo.ico" onclick="window.location.href = '/Arcade'" alt="" width="100" height="100">
+<p> </p>
+<img src="http://files.softicons.com/download/web-icons/stock-web-icons-by-snap2objects/png/512/reload.png" onclick="window.location.reload()" alt="" width="100" height="100">
+</div>
+<div class="player" id="Player" style="display:none;"></div>
+<div class=splash>
+<div>
+  <img src="/Arcade/logo.ico" onclick="window.location.href = '/Arcade'" alt="" width="400" height="400">
+  <h1 id="loadmessage">Loading...</h1>
+  <div class=progress><div class=progress-bar></div></div>
+</div>
+</div>
+<div class=error>
+<div>
+  <img src="/Arcade/logo.ico" onclick="window.location.href = '/Arcade'" alt="" width="200" height="200">
+  <h1 id="errormessage">Error</h1>
+  <img src="http://files.softicons.com/download/social-media-icons/brushed-metal-icons-by-mebaze/png/512x512/Reload-01.png" onclick="window.location.reload()" alt="" width="100" height="100">
+  <p>Reload</p>
+</div>
+</div>
+<script src=fonts.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js></script>
+<script src=https://dog12312.github.io/assets/apps/rgbcolor.js></script>
+<script src=https://dog12312.github.io/assets/apps/StackBlur.js></script>
+<script src=https://dog12312.github.io/assets/apps/canvg.js></script>
+<script src=https://dog12312.github.io/assets/apps/app.js></script>
+<script>
+
+(function () {
+  'use strict';
+
+  var stage;
+  var projectId = 0;
+  var projectTitle = '';
+  var turbo = false;
+  var fullScreen = true;
+
+  var params = location.search.substr(1).split('&');
+  params.forEach(function(p) {
+    var parts = p.split('=');
+    if (parts.length > 1) {
+      switch (parts[0]) {
+        case 'id':
+          projectId = Number(parts[1]);
+          break;
+        case 'turbo':
+          turbo = parts[1] !== 'false';
+          break;
+        case 'full-screen':
+          fullScreen = parts[1] !== 'false';
+          break;
+      }
+    }
+  });
+
+  var splash = document.querySelector('.splash');
+  var progressBar = document.querySelector('.progress-bar');
+  var error = document.querySelector('.error');
+  var bugLink = document.querySelector('#bug-link');
+  var player = document.querySelector('.player');
+
+  var stage;
+
+  function layout() {
+    if (!stage) return;
+    var w = Math.min(window.innerWidth, window.innerHeight / .75);
+    if (!fullScreen) w = Math.min(w, 480);
+    var h = w * .75;
+    player.style.left = (window.innerWidth - w) / 2 + 'px';
+    player.style.top = (window.innerHeight - h) / 2 + 'px';
+    stage.setZoom(w / 480);
+    stage.draw();
+  }
+
+  function showError(e) {
+    error.style.display = 'table';
+    bugLink.href = '';
+    console.error(e.stack);
+  }
+
+  window.addEventListener('resize', layout);
+
+  if (P.hasTouchEvents) {
+    document.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+    });
+  }
+
+  var request = P.IO.loadScratchr2Project(projectId);
+
+  request.onload = function (s) {
+    splash.style.display = 'none';
+
+    stage = s;
+    layout();
+
+    s.isTurbo = turbo;
+    s.start();
+    s.triggerGreenFlag();
+
+    player.appendChild(s.root);
+    s.focus();
+    s.handleError = showError;
+  };
+  request.onerror = showError;
+  request.onprogress = function (e) {
+    progressBar.style.width = (10 + e.loaded / e.total * 90) + '%';
+  };
+
+  P.IO.loadScratchr2ProjectTitle(projectId, function(title) {
+    document.title = projectTitle = title;
+  });
+
+}());
+
+var LoadMessage = ["Warming Ion Cannon","Connecting the Blocks","Processor at 100%","Running Bitworld 36"];
+document.getElementById('loadmessage').innerHTML = LoadMessage[Math.floor(Math.random() * 4)];
+
+var ErrorMessage = ["Processor Fail","The Blocks Don't Match","Error Yes an Error","Bit Count 0"];
+document.getElementById('errormessage').innerHTML = ErrorMessage[Math.floor(Math.random() * 4)];
+</script>
+<div align="center" id="Buy" style="width:100%;height:100%;display:block;background-color: rgba(0,0,0,1);">
+  <div>
+    <a style="color:#fff;"><h1>Do you want to buy the Scratch Launcher for 50 Coins</h1></a>
+    <a style="color:#fff;"><p id="abletobuy" onclick="Buy();">Checking</p></a>
+  </div>
+</div>
+<script>
+var ArcadeCoins = localStorage.getItem("ArcadeCoins");
+var ownsscratchlauncher = "Yes";//localStorage.getItem("ownsscratchlauncher");
+if (ownsscratchlauncher == null) {
+  ownsscratchlauncher = "No";
+  localStorage.setItem("ownsscratchlauncher", "No");
+}
+if (ownsscratchlauncher == "Yes") {
+  Bought();
+}
+if (localStorage.ArcadeCoins > 49) {
+  document.getElementById('abletobuy').innerHTML = "[Buy]";
+} else { document.getElementById('abletobuy').innerHTML = "Need more Coins. see the Data Handeler for more info."; }
+function NeedtoBuy() {
+  document.getElementById("Buy").style.display = "block";
+}
+function Buy() {
+  if (localStorage.ArcadeCoins > 49) {
+      var ConfirmPurchase = confirm("Are you sure you want to buy: Scratch Launcher for 50 Coins.");
+      if (ConfirmPurchase == true) {
+        window.open( '/Arcade/Store/item/ScratchLauncher', 'PurchaseWindow', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=500,height=200' );
+        setTimeout(function() { window.reload(); },2000);
+      } else {
+        alert('Purchase Candeled');
+      }
+  } else { alert("Need more Coins. see the Data Handeler for more info."); }
+}
+function Bought() {
+  document.getElementById("Buy").style.display = "none";
+  document.getElementById("sidebuttons").style.display = "block";
+  document.getElementById("Player").style.display = "block";
+}
+</script>
